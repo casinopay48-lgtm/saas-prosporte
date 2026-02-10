@@ -1,0 +1,367 @@
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+// 🔴 REFERÊNCIA DE CÓDIGO: Campo "acontecendo_gol"
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+/**
+ * IA DO ANDROID:
+ * 
+ * Use EXATAMENTE este código como referência.
+ * O campo é: acontecendo_gol (boolean)
+ * 
+ * Status: Oficial desde 2026-01-31
+ */
+
+
+// ═══════════════════════════════════════════════════════════════
+// 1. MODEL/ENTITY (Kotlin com Retrofit)
+// ═══════════════════════════════════════════════════════════════
+
+data class Partida(
+    @JsonProperty("id_partida")
+    val id_partida: String,
+
+    @JsonProperty("casa")
+    val casa: String,
+
+    @JsonProperty("fora")
+    val fora: String,
+
+    @JsonProperty("placar_casa")
+    val placar_casa: Int,
+
+    @JsonProperty("placar_fora")
+    val placar_fora: Int,
+
+    @JsonProperty("status")
+    val status: String,
+
+    @JsonProperty("liga")
+    val liga: String,
+
+    @JsonProperty("data_partida")
+    val data_partida: String,
+
+    @JsonProperty("timestamp_sync")
+    val timestamp_sync: String,
+
+    @JsonProperty("acontecendo_gol")  // ← OFICIAL!
+    val acontecendo_gol: Boolean = false
+)
+
+
+// ═══════════════════════════════════════════════════════════════
+// 2. REACT NATIVE (TypeScript)
+// ═══════════════════════════════════════════════════════════════
+
+interface Partida {
+    id_partida: string;
+    casa: string;
+    fora: string;
+    placar_casa: number;
+    placar_fora: number;
+    status: string;
+    liga: string;
+    data_partida: string;
+    timestamp_sync: string;
+    acontecendo_gol: boolean;  // ← OFICIAL!
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// 3. RETROFIT SERVICE (Kotlin)
+// ═══════════════════════════════════════════════════════════════
+
+interface ProSporteAPI {
+    @GET("/api/v1/sync")
+    suspend fun getJogos(): ApiResponse<List<Partida>>
+}
+
+// Response model
+data class ApiResponse<T>(
+    val status: String,
+    val jogos: T,
+    val timestamp: String
+)
+
+
+// ═══════════════════════════════════════════════════════════════
+// 4. REPOSITORY (Kotlin)
+// ═══════════════════════════════════════════════════════════════
+
+class JogoRepository(private val api: ProSporteAPI) {
+    
+    suspend fun obterJogos(): List<Partida> {
+        return try {
+            val response = api.getJogos()
+            response.jogos
+        } catch (e: Exception) {
+            Log.e("JogoRepository", "Erro ao buscar jogos", e)
+            emptyList()
+        }
+    }
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// 5. RENDERIZAR NO COMPONENTE (React Native)
+// ═══════════════════════════════════════════════════════════════
+
+import React, { useEffect } from 'react';
+import { View, Text, Animated } from 'react-native';
+
+interface MatchCardProps {
+    match: Partida;
+}
+
+const MatchCard: React.FC<MatchCardProps> = ({ match }) => {
+    const scaleAnim = new Animated.Value(1);
+
+    useEffect(() => {
+        // Se acontecendo_gol for true, ativa animação
+        if (match.acontecendo_gol) {
+            Animated.loop(
+                Animated.sequence([
+                    Animated.timing(scaleAnim, {
+                        toValue: 1.3,
+                        duration: 300,
+                        useNativeDriver: true,
+                    }),
+                    Animated.timing(scaleAnim, {
+                        toValue: 1,
+                        duration: 300,
+                        useNativeDriver: true,
+                    }),
+                ])
+            ).start();
+        }
+    }, [match.acontecendo_gol, scaleAnim]);
+
+    return (
+        <View style={styles.matchCard}>
+            <View style={styles.matchRow}>
+                <Text style={styles.teamName}>{match.casa}</Text>
+
+                <View style={styles.scoreContainer}>
+                    <Text style={styles.score}>
+                        {match.placar_casa} × {match.placar_fora}
+                    </Text>
+
+                    {/* ← AQUI: Renderiza bolinha se true */}
+                    {match.acontecendo_gol && (
+                        <Animated.View
+                            style={[
+                                styles.golIndicator,
+                                { transform: [{ scale: scaleAnim }] },
+                            ]}
+                        />
+                    )}
+                </View>
+
+                <Text style={styles.teamName}>{match.fora}</Text>
+            </View>
+
+            <View style={styles.infoRow}>
+                <Text style={styles.infoText}>{match.liga}</Text>
+                <Text style={styles.infoText}>•</Text>
+                <Text style={styles.infoText}>{match.status}</Text>
+            </View>
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    matchCard: {
+        backgroundColor: 'white',
+        borderRadius: 8,
+        padding: 15,
+        marginBottom: 10,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.2,
+        shadowRadius: 3,
+        elevation: 3,
+    },
+    matchRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 8,
+    },
+    teamName: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        flex: 1,
+        textAlign: 'center',
+    },
+    scoreContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginHorizontal: 10,
+    },
+    score: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#007AFF',
+    },
+    golIndicator: {
+        width: 12,
+        height: 12,
+        borderRadius: 6,
+        backgroundColor: '#4CAF50',  // Verde
+        marginTop: 4,
+        shadowColor: '#4CAF50',
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.8,
+        shadowRadius: 3,
+        elevation: 2,
+    },
+    infoRow: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        gap: 8,
+    },
+    infoText: {
+        fontSize: 12,
+        color: '#666',
+    },
+});
+
+export default MatchCard;
+
+
+// ═══════════════════════════════════════════════════════════════
+// 6. VIEWMODEL (Kotlin com Coroutines)
+// ═══════════════════════════════════════════════════════════════
+
+class JogoViewModel(private val repository: JogoRepository) : ViewModel() {
+    
+    private val _jogos = MutableLiveData<List<Partida>>()
+    val jogos: LiveData<List<Partida>> = _jogos
+
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean> = _loading
+
+    fun carregarJogos() {
+        viewModelScope.launch {
+            _loading.value = true
+            try {
+                val dados = repository.obterJogos()
+                _jogos.value = dados
+                
+                // Log para debug
+                dados.forEach { jogo ->
+                    Log.d("JogoViewModel", 
+                        "${jogo.casa} vs ${jogo.fora} - " +
+                        "acontecendo_gol: ${jogo.acontecendo_gol}")
+                }
+            } finally {
+                _loading.value = false
+            }
+        }
+    }
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// 7. TESTE UNITÁRIO
+// ═══════════════════════════════════════════════════════════════
+
+@Test
+fun testParidaMappingAcontecendoGol() {
+    val json = """
+    {
+        "id_partida": "1003",
+        "casa": "Flamengo",
+        "fora": "Palmeiras",
+        "placar_casa": 1,
+        "placar_fora": 0,
+        "status": "42'",
+        "liga": "Brasileirão",
+        "data_partida": "2026-01-31T14:20:00Z",
+        "timestamp_sync": "2026-01-31T14:30:00Z",
+        "acontecendo_gol": true
+    }
+    """
+    
+    val partida = Gson().fromJson(json, Partida::class.java)
+    
+    // Validar que o campo foi parseado corretamente
+    assertNotNull(partida)
+    assertEquals("Flamengo", partida.casa)
+    assertTrue(partida.acontecendo_gol)  // ← Validar campo AQUI
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// 8. LISTA DE JOGOS (Kotlin + Compose)
+// ═══════════════════════════════════════════════════════════════
+
+@Composable
+fun JogosList(viewModel: JogoViewModel) {
+    val jogos by viewModel.jogos.observeAsState(initial = emptyList())
+    val loading by viewModel.loading.observeAsState(initial = false)
+
+    LazyColumn {
+        items(jogos) { partida ->
+            JogoCard(partida)
+        }
+    }
+}
+
+@Composable
+fun JogoCard(partida: Partida) {
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp),
+        elevation = 4.dp
+    ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(partida.casa, modifier = Modifier.weight(1f), textAlign = TextAlign.Center)
+            
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                modifier = Modifier.weight(1f)
+            ) {
+                Text("${partida.placar_casa} - ${partida.placar_fora}")
+                
+                // ← BOLINHA VERDE SE TRUE
+                if (partida.acontecendo_gol) {
+                    Box(
+                        modifier = Modifier
+                            .size(8.dp)
+                            .background(Color.Green, shape = CircleShape)
+                    )
+                }
+            }
+            
+            Text(partida.fora, modifier = Modifier.weight(1f), textAlign = TextAlign.Center)
+        }
+    }
+}
+
+
+// ═══════════════════════════════════════════════════════════════
+// RESUMO PARA IA:
+// ═══════════════════════════════════════════════════════════════
+
+/*
+  1. CAMPO: acontecendo_gol (boolean)
+  2. JSON: "acontecendo_gol": true/false
+  3. MODEL: @JsonProperty("acontecendo_gol") val acontecendo_gol: Boolean
+  4. RENDERIZAR: if (partida.acontecendo_gol) { bolinha verde }
+  5. TESTAR: curl http://localhost:3000/api/v1/sync
+  
+  ✅ Oficializado: 2026-01-31
+  ✅ Backend: Enviando
+  ✅ Frontend Web: Renderizando
+  ⏳ Android: Aguarda sua implementação
+*/
+
+// ═══════════════════════════════════════════════════════════════

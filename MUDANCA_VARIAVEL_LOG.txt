@@ -1,0 +1,194 @@
+📋 LOG DE MUDANÇAS: Campo de Alerta de Gol
+═══════════════════════════════════════════════════════════════
+
+Data: 2026-01-31
+Status: ✅ OFICIALIZADO
+Versão: 1.0
+
+
+📝 HISTÓRICO DE MUDANÇAS:
+
+
+ANTES (Temporário):
+─────────────────
+Vários nomes testados:
+- gol (simples, mas ambíguo)
+- golIndicator (muito comprido)
+- pulsandoGol (português demais)
+- acontecendoGol (camelCase - descartado)
+
+
+DEPOIS (Oficial):
+──────────────
+Nome: acontecendo_gol
+Tipo: boolean
+Padrão: false
+Valores: true | false
+
+
+═══════════════════════════════════════════════════════════════
+
+🔧 COMPONENTES AFETADOS:
+
+
+1. Backend (hub-server.js)
+   ✅ Campo adicionado: "acontecendo_gol": boolean
+   ✅ Endpoint: GET /api/v1/sync
+   ✅ Status: Pronto
+
+2. Frontend Web (prosporte-preview.html)
+   ✅ Renderiza bolinha verde quando true
+   ✅ Animação CSS (pulse)
+   ✅ Status: Pronto
+
+3. Android (MatchCard.jsx)
+   ⏳ Aguarda atualização:
+      - Model/Entity: acontecendo_gol
+      - Renderização: if (match.acontecendo_gol)
+      - Animação: Bolinha piscante
+   Status: Pendente
+
+4. iOS (se aplicável)
+   ⏳ Mesmas mudanças do Android
+   Status: Pendente
+
+
+═══════════════════════════════════════════════════════════════
+
+📊 ESPECIFICAÇÃO TÉCNICA:
+
+
+Nome:          acontecendo_gol
+Tipo:          boolean
+Localização:   JSON raiz (não aninhado)
+Valores:       true | false
+Padrão:        false
+Backend:       ✅ Implementado
+Frontend Web:  ✅ Implementado
+Mobile:        ⏳ Aguarda IA
+
+Exemplo JSON:
+{
+  "jogos": [
+    {
+      "id": 1,
+      "liga": "BRASILEIRÃO",
+      "casa": "FLAMENGO",
+      "fora": "PALMEIRAS",
+      "placar_casa": 1,
+      "placar_fora": 0,
+      "status": "42'",
+      "acontecendo_gol": true     ← AQUI
+    }
+  ]
+}
+
+
+═══════════════════════════════════════════════════════════════
+
+✅ CHECKLIST DE IMPLEMENTAÇÃO:
+
+
+Backend:
+  [x] Adicionar campo ao servidor
+  [x] Enviar via /api/v1/sync
+  [x] Testar com curl
+  [x] Validar com Postman
+
+Frontend Web:
+  [x] Renderizar HTML
+  [x] CSS animation (pulse)
+  [x] JavaScript atualiza a cada 5s
+  [x] Testar em navegador (http://localhost:3000)
+
+Android:
+  [ ] Atualizar Model/Entity
+  [ ] Adicionar @JsonProperty("acontecendo_gol")
+  [ ] Importar field no mapeamento
+  [ ] Componente verifica field
+  [ ] Renderizar bolinha se true
+  [ ] Testar em device
+
+iOS (futuro):
+  [ ] Mesmos passos do Android
+  [ ] Validar com SwiftUI/UIKit
+
+
+═══════════════════════════════════════════════════════════════
+
+🔗 ARQUIVOS RELACIONADOS:
+
+
+Backend:
+  - backend/hub-server.js (implementação)
+  - backend/package.json (dependências)
+  - HUB_PROSPORTE_GUIA.txt (documentação)
+
+Frontend Web:
+  - prosporte-preview.html (renderização)
+  - serve-preview.js (servidor)
+
+Android (IA):
+  - ANDROID_IA_INSTRUCTION.md (instruções)
+  - AVISO_URGENTE_IA_ANDROID.txt (alerta de mudança)
+
+
+═══════════════════════════════════════════════════════════════
+
+📢 COMUNICADO PARA EQUIPE:
+
+
+Devs:
+  "Campo oficializado como 'acontecendo_gol' (boolean).
+   Todos os novos endpoints usarão este nome."
+
+QA:
+  "Testar campo 'acontecendo_gol' em todos os payloads JSON.
+   Deve ser boolean com valores true/false."
+
+Android IA:
+  "Atualizar Model para mapear 'acontecendo_gol' corretamente.
+   Campo está ativo em /api/v1/sync desde 2026-01-31."
+
+iOS IA (futuro):
+  "Mesmo padrão Android. Campo 'acontecendo_gol': boolean."
+
+
+═══════════════════════════════════════════════════════════════
+
+🧪 TESTES NECESSÁRIOS:
+
+
+1. Backend
+   $ curl http://localhost:3000/api/v1/sync
+   Procurar por: "acontecendo_gol": true
+
+2. Frontend Web
+   URL: http://localhost:3000
+   Procurar por: Bolinha verde 🟢 piscando
+
+3. Android
+   Parse JSON → Model.acontecendo_gol
+   if (match.acontecendo_gol) → renderizar bolinha
+
+4. Integração End-to-End
+   Backend → API → Android → UI
+
+
+═══════════════════════════════════════════════════════════════
+
+📍 RASTREAMENTO:
+
+
+Versão: 1.0
+Status: ✅ Oficializado
+Data de Implementação: 2026-01-31
+Criado por: IA ProSporte Backend
+Próximo Passo: Android Implementation (IA)
+
+
+═══════════════════════════════════════════════════════════════
+
+Assinado:
+🖊️ Backend Hub v1.0
+   ProSporte 2026

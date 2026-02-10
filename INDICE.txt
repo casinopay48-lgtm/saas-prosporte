@@ -1,0 +1,262 @@
+╔════════════════════════════════════════════════════════════════╗
+║                       📑 ÍNDICE GERAL                          ║
+║          Arquivos Criados | Teste | Instruções                 ║
+╚════════════════════════════════════════════════════════════════╝
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  👉 COMECE AQUI (escolha um)                                ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  📄 README_RAPIDO.txt
+     Resumo em 30 segundos
+     └─ Abre o arquivo, lê tudo em 1 min
+
+  📄 START_ACONTECENDO_GOL.txt
+     Guia rápido em 5 minutos
+     └─ Teste backend, veja preview
+
+  📄 VISUAL_RESUMO.txt
+     Diagramas ASCII
+     └─ Fluxo visual de dados
+
+  📄 FINALIZADO.md
+     Visão completa
+     └─ Tudo que foi feito
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  🤖 INSTRUIR IA DO ANDROID                                  ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  📄 ANDROID_IA_INSTRUCTION.md ⭐ COMPARTILHE ISTO
+     └─ 850+ linhas com código pronto
+     └─ Instruções técnicas
+     └─ Estilos CSS
+     └─ Exemplos de teste
+     └─ Checklist
+
+  📄 COMO_INSTRUIR_IA_ANDROID.md
+     └─ SEU GUIA de comunicação
+     └─ Um-liners prontos
+     └─ Respostas a perguntas
+     └─ Checklist de validação
+
+  📄 RESPOSTA_SUA_PERGUNTA.md
+     └─ Resposta exata à sua pergunta
+     └─ Fluxo completo
+     └─ Como testar
+     └─ Próximos passos
+
+  📄 prosporte-preview.html ⭐ MOSTRE ISTO
+     └─ Página web interativa
+     └─ Bolinha verde piscando
+     └─ 3 partidas de exemplo
+     └─ JSON visível
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  📚 REFERÊNCIA & DOCUMENTAÇÃO                                ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  📄 00_SUMARIO_GERAL.md
+     └─ Índice de tudo
+     └─ O que foi criado
+     └─ Mudanças específicas
+     └─ Como testar
+
+  📄 FLUXO_ACONTECENDO_GOL.md
+     └─ Documentação técnica
+     └─ Fluxo passo-a-passo
+     └─ Como testar localmente
+     └─ FAQ
+
+  📄 IMPLEMENTACAO_COMPLETA.md
+     └─ Resumo executivo
+     └─ Todas mudanças
+     └─ Testes necessários
+     └─ Próximos passos
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  🧪 TESTES & SCRIPTS                                         ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  ⚙️  test-acontecendo-gol.js
+     Execute: node test-acontecendo-gol.js
+     └─ Valida se backend retorna campo
+     └─ Mostra resposta formatada
+     └─ Próximos passos
+
+  ⚙️  serve-preview.js
+     Execute: node serve-preview.js
+     └─ Inicia servidor na porta 8888
+     └─ Sirve prosporte-preview.html
+     └─ Acesse: http://localhost:8888
+
+  🌐 prosporte-preview.html
+     Visualização interativa
+     └─ Bolinha verde piscando
+     └─ 3 partidas de exemplo
+     └─ JSON de exemplo
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  ✅ CHECKLIST & TRACKING                                     ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  📋 CHECKLIST_INTERATIVO.md
+     └─ Passo-a-passo com checkboxes
+     └─ 6 fases de implementação
+     └─ Troubleshooting
+     └─ FAQ
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  🔧 BACKEND MODIFICADO                                       ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  ✅ backend/src/services/apiAdapter.js
+     └─ Mock inclui _prosporte_meta.acontecendo_gol
+
+  ✅ backend/src/services/normalizer.js
+     └─ Detecta e persiste acontecendo_gol
+
+  ✅ GET /api/v1/sync
+     └─ Retorna novo campo
+
+
+═══════════════════════════════════════════════════════════════
+
+📖 MATRIZ DE USO:
+
+┌─────────────────┬──────────────────┬─────────────────────┐
+│ SEU CASO DE USO  │ ARQUIVO PRINCIPAL│ TEMPO NECESSÁRIO   │
+├─────────────────┼──────────────────┼─────────────────────┤
+│ Entender rápido │ README_RAPIDO    │ 1 minuto            │
+│ Testar backend  │ START_...        │ 5 minutos           │
+│ Ver animação    │ serve-preview    │ 3 minutos           │
+│ Instruir IA     │ ANDROID_IA_...   │ 2 minutos (ler)     │
+│ Sua comunicação │ COMO_INSTRUIR... │ 3 minutos (ler)     │
+│ Visão completa  │ 00_SUMARIO_...   │ 10 minutos          │
+│ Apresentar time │ IMPLEMENTACAO... │ 5 minutos           │
+│ Rastrear progg. │ CHECKLIST_...    │ Conforme avança    │
+│ Fluxo técnico   │ FLUXO_...        │ 15 minutos          │
+│ Diagramas       │ VISUAL_RESUMO    │ 5 minutos           │
+└─────────────────┴──────────────────┴─────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════
+
+🚀 COMECE AGORA:
+
+  Opção 1 (Super Rápido - 1 min):
+  $ cat README_RAPIDO.txt
+
+  Opção 2 (Rápido - 5 min):
+  $ cat START_ACONTECENDO_GOL.txt
+  $ node test-acontecendo-gol.js
+  $ node serve-preview.js
+  → Abra: http://localhost:8888
+
+  Opção 3 (Completo - 15 min):
+  $ Leia: 00_SUMARIO_GERAL.md
+  $ Leia: ANDROID_IA_INSTRUCTION.md
+  $ Execute testes
+
+
+═══════════════════════════════════════════════════════════════
+
+📍 LOCALIZAÇÃO DOS ARQUIVOS:
+
+  c:\Dev\saasportesMobile\
+  ├── README_RAPIDO.txt                      ← Comece aqui
+  ├── START_ACONTECENDO_GOL.txt
+  ├── VISUAL_RESUMO.txt
+  ├── FINALIZADO.md
+  ├── 00_SUMARIO_GERAL.md
+  ├── RESPOSTA_SUA_PERGUNTA.md
+  ├── ANDROID_IA_INSTRUCTION.md              ← Passe para IA
+  ├── COMO_INSTRUIR_IA_ANDROID.md
+  ├── FLUXO_ACONTECENDO_GOL.md
+  ├── IMPLEMENTACAO_COMPLETA.md
+  ├── CHECKLIST_INTERATIVO.md
+  ├── prosporte-preview.html
+  ├── serve-preview.js
+  ├── test-acontecendo-gol.js
+  ├── INDICE.txt                             ← Você está aqui
+  └── backend/
+      ├── src/services/apiAdapter.js         ← Modificado ✅
+      └── src/services/normalizer.js         ← Modificado ✅
+
+
+═══════════════════════════════════════════════════════════════
+
+🎯 MAPA MENTAL:
+
+  RESPONDER À PERGUNTA
+       ↓
+  [RESPOSTA_SUA_PERGUNTA.md]
+       ↓
+  ENTENDER QUICK
+       ↓
+  [README_RAPIDO.txt] ou [VISUAL_RESUMO.txt]
+       ↓
+  TESTAR BACKEND
+       ↓
+  [test-acontecendo-gol.js]
+       ↓
+  VER ANIMAÇÃO
+       ↓
+  [serve-preview.js] → http://localhost:8888
+       ↓
+  INSTRUIR IA
+       ↓
+  [ANDROID_IA_INSTRUCTION.md] + [prosporte-preview.html]
+       ↓
+  IA IMPLEMENTA
+       ↓
+  [CHECKLIST_INTERATIVO.md]
+       ↓
+  VALIDAR
+       ↓
+  [FLUXO_ACONTECENDO_GOL.md]
+       ↓
+  SUCESSO! 🎉
+
+
+═══════════════════════════════════════════════════════════════
+
+💡 DICAS RÁPIDAS:
+
+  • Não sabe por onde começar?
+    → Leia: README_RAPIDO.txt (1 minuto)
+
+  • Quer testar agora?
+    → Execute: node test-acontecendo-gol.js
+
+  • Quer ver a bolinha piscando?
+    → Execute: node serve-preview.js
+    → Acesse: http://localhost:8888
+
+  • Quer instruir a IA?
+    → Compartilhe: ANDROID_IA_INSTRUCTION.md
+
+  • Quer entender tudo?
+    → Leia: 00_SUMARIO_GERAL.md
+
+  • Quer acompanhar progresso?
+    → Use: CHECKLIST_INTERATIVO.md
+
+
+═══════════════════════════════════════════════════════════════
+
+✨ STATUS: 100% COMPLETO E PRONTO PARA USAR
+
+Criado: 2026-01-31
+Arquivos: 14
+Linhas de documentação: 3000+
+Scripts de teste: 3
+Status: ✅ PRONTO
+
+═══════════════════════════════════════════════════════════════

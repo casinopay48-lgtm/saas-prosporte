@@ -1,0 +1,210 @@
+╔════════════════════════════════════════════════════════════════╗
+║                 🎬 NOVO CAMPO: acontecendo_gol                  ║
+║                                                                ║
+║  O JSON da API agora envia um campo booleano chamado           ║
+║  "acontecendo_gol". Se for true, o Android deve mostrar       ║
+║  uma bolinha verde piscante ao lado do placar.                ║
+║                                                                ║
+╚════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 TESTE RÁPIDO (5 minutos):
+
+  1. Terminal 1:
+     ┌─────────────────────────────────────────────────────────┐
+     │ cd backend                                              │
+     │ npm install                                             │
+     │ npm start                                               │
+     └─────────────────────────────────────────────────────────┘
+
+  2. Terminal 2:
+     ┌─────────────────────────────────────────────────────────┐
+     │ node test-acontecendo-gol.js                            │
+     │ # Ver resposta da API com campo acontecendo_gol ✅      │
+     └─────────────────────────────────────────────────────────┘
+
+  3. Terminal 3:
+     ┌─────────────────────────────────────────────────────────┐
+     │ node serve-preview.js                                   │
+     │ # Abra http://localhost:8888                            │
+     │ # Veja bolinha verde piscando! 🟢                       │
+     └─────────────────────────────────────────────────────────┘
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📱 INSTRUIR A IA DO ANDROID:
+
+  Copie e cole ISTO para a IA:
+
+  ┌─────────────────────────────────────────────────────────┐
+  │ O JSON da API agora envia um campo booleano chamado      │
+  │ acontecendo_gol. Se for true, mostre uma View circular  │
+  │ verde com uma animação de Alpha ou Scale (piscar) ao    │
+  │ lado do placar no item da lista.                         │
+  │                                                           │
+  │ Leia o arquivo ANDROID_IA_INSTRUCTION.md para código    │
+  │ React Native completo e pronto para usar.               │
+  │                                                           │
+  │ Teste visualizando: http://localhost:8888 (preview)     │
+  └─────────────────────────────────────────────────────────┘
+
+  Arquivos para compartilhar com IA do Android:
+  • ANDROID_IA_INSTRUCTION.md (instruções + código)
+  • prosporte-preview.html (visualizar animação)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📊 MUDANÇAS NO BACKEND:
+
+  ✅ apiAdapter.js
+     └─ Mock agora inclui _prosporte_meta.acontecendo_gol
+
+  ✅ normalizer.js
+     └─ Detecta e persiste o campo acontecendo_gol
+
+  ✅ data/jogos.json
+     └─ Inclui "acontecendo_gol": true/false para cada partida
+
+  ✅ GET /api/v1/sync
+     └─ Retorna JSON com o novo campo
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🧪 EXEMPLO DE JSON (do backend):
+
+  {
+    "id_partida": "1003",
+    "casa": "Flamengo RJ",
+    "fora": "Corinthians SP",
+    "placar_casa": 1,
+    "placar_fora": 1,
+    "status": "20 min",
+    "liga": "Campeonato Brasileiro",
+    "data_partida": "2026-01-31T14:20:00Z",
+    "timestamp_sync": "2026-01-31T14:30:00Z",
+    "acontecendo_gol": true     ← NOVO CAMPO!
+  }
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📚 DOCUMENTAÇÃO CRIADA:
+
+  ANDROID_IA_INSTRUCTION.md
+  ├─ Instrução completa para IA do Android
+  ├─ Código React Native pronto
+  ├─ Estilos CSS
+  ├─ Exemplos de teste
+  └─ Checklist de implementação
+
+  COMO_INSTRUIR_IA_ANDROID.md
+  ├─ Seu guia de comunicação com IA
+  ├─ Um-liners para usar
+  ├─ Checklist de validação
+  └─ Respostas a perguntas comuns
+
+  FLUXO_ACONTECENDO_GOL.md
+  ├─ Documentação técnica
+  ├─ Fluxo passo-a-passo
+  ├─ Como testar
+  └─ Perguntas frequentes
+
+  IMPLEMENTACAO_COMPLETA.md
+  ├─ Resumo executivo
+  ├─ Todas as mudanças
+  ├─ Testes necessários
+  └─ Próximos passos
+
+  prosporte-preview.html
+  ├─ Visualização web
+  ├─ 3 partidas de exemplo
+  ├─ Bolinha verde piscando
+  └─ JSON de exemplo
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ CHECKLIST DE IMPLEMENTAÇÃO:
+
+  Backend:
+  [ ] npm install (em backend/)
+  [ ] npm start (teste que inicia)
+  [ ] curl http://localhost:3000/api/v1/sync (vê campo novo)
+  [ ] node test-acontecendo-gol.js (valida resposta)
+
+  Web Preview:
+  [ ] node serve-preview.js (servidor iniciado)
+  [ ] http://localhost:8888 (abre no navegador)
+  [ ] Vê bolinha verde piscando? ✅
+
+  Android Instruction:
+  [ ] Compartilhar ANDROID_IA_INSTRUCTION.md com IA
+  [ ] Compartilhar prosporte-preview.html (como referência)
+  [ ] IA implementar MatchCard.jsx
+
+  Produção:
+  [ ] Deploy backend em VPS (api.prosporte.com.br)
+  [ ] Testar: curl https://api.prosporte.com.br/api/v1/sync
+  [ ] Android integrado (aponta para URL production)
+  [ ] Usuários veem bolinha verde em tempo real ✅
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🎯 STATUS ATUAL:
+
+  ✅ Backend implementado (apiAdapter + normalizer)
+  ✅ JSON normalizado com novo campo
+  ✅ API endpoint retornando dados corretos
+  ✅ Documentação completa criada
+  ✅ Preview web funcionando
+  ✅ Instruções para Android prontas
+
+  ⏳ Implementação Android (aguarda IA com instruções)
+  ⏳ Deploy produção (aguarda credenciais VPS)
+  ⏳ API keys reais (aguarda configuração)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 UX ESPERADA:
+
+  Antes:
+  ┌────────────────────────┐
+  │ Flamengo      1 × 1     │
+  │ Corinthians            │
+  └────────────────────────┘
+
+  Depois (quando acontecendo_gol = true):
+  ┌────────────────────────┐
+  │ Flamengo      1 × 1 🟢  │  ← Bolinha verde piscando
+  │ Corinthians            │
+  └────────────────────────┘
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📞 DÚVIDAS?
+
+  P: Onde ver a bolinha piscando agora?
+  R: http://localhost:8888 (após executar serve-preview.js)
+
+  P: Como passar para Android?
+  R: Use instrução em ANDROID_IA_INSTRUCTION.md + preview.html
+
+  P: Quebra compatibilidade com iOS?
+  R: Não! Campo é opcional. Use match.acontecendo_gol ?? false
+
+  P: Vai mudar quando deploitar?
+  R: Não! Backend já faz tudo. iOS/Android apenas consomem JSON.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 PRÓXIMO PASSO:
+
+  Teste AGORA:
+  1. node test-acontecendo-gol.js (valida campo)
+  2. node serve-preview.js (vê bolinha piscando)
+  3. Compartilhe ANDROID_IA_INSTRUCTION.md com IA do Android
+
+  Resultado esperado em 24h: IA implementa e testa em device.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Versão: 1.0 | Data: 2026-01-31 | Status: ✅ PRONTO

@@ -1,0 +1,96 @@
+apply plugin: "com.android.application"
+apply plugin: "com.facebook.react"
+
+project.ext.react = [
+    enableHermes: false
+]
+
+def jscFlavor = 'org.webkit:android-jsc:+'
+
+android {
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    ndkVersion rootProject.ext.ndkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+    compileSdk rootProject.ext.compileSdkVersion
+
+    namespace "com.saasportesmobile"
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        
+        // BuildConfig fields padrão
+        buildConfigField "String", "TENANT_ID", "\"default\""
+        buildConfigField "String", "API_URL", "\"https://api.prosporte.com.br\""
+    }
+
+    signingConfigs {
+        debug {
+            storeFile file('debug.keystore')
+            storePassword 'android'
+            keyAlias 'androiddebugkey'
+            keyPassword 'android'
+        }
+    }
+
+    // Product Flavors - Multi-Tenant Configuration
+    flavorDimensions "tenant"
+    
+    productFlavors {
+        // Flavor: Banca Padrão (Pro Sporte)
+        banca_padrao {
+            dimension "tenant"
+            applicationId "com.saasportes.main"
+            resValue "string", "app_name", "Pro Sporte"
+            buildConfigField "String", "TENANT_ID", "\"default\""
+            buildConfigField "String", "API_URL", "\"https://api.prosporte.com.br\""
+        }
+        
+        // Flavor: Banca Teste
+        banca_teste {
+            dimension "tenant"
+            applicationId "com.saasportes.teste"
+            resValue "string", "app_name", "Banca Teste"
+            buildConfigField "String", "TENANT_ID", "\"teste\""
+            buildConfigField "String", "API_URL", "\"https://api.bancateste.com.br\""
+        }
+    }
+    
+    // Personalizar nomes dos APKs gerados
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            def flavorName = variant.flavorName
+            def buildTypeName = variant.buildType.name
+            def versionName = variant.versionName
+            outputFileName = "${flavorName}-${buildTypeName}-v${versionName}.apk"
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
+        release {
+            signingConfig signingConfigs.debug
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    implementation("com.facebook.react:react-android")
+    implementation("org.webkit:android-jsc:+")
+}
+
+apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+
+

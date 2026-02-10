@@ -1,0 +1,128 @@
+{
+  "info": {
+    "name": "ProSporte Backend API",
+    "description": "Coleção de endpoints para testar o Backend Hub",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["health"]
+        }
+      }
+    },
+    {
+      "name": "GET /api/v1/sync",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/sync",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "sync"]
+        }
+      }
+    },
+    {
+      "name": "POST /api/v1/sync (Force Sync)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"provider\": \"mock\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/v1/sync",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "sync"]
+        }
+      }
+    },
+    {
+      "name": "GET /api/v1/sync/status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/sync/status",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "sync", "status"]
+        }
+      }
+    },
+    {
+      "name": "GET /api/v1/sync/matches",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/sync/matches",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "sync", "matches"]
+        }
+      }
+    },
+    {
+      "name": "GET /api/v1/sync/matches (Filter by Liga)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/sync/matches?liga=La%20Liga",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "sync", "matches"],
+          "query": [
+            {
+              "key": "liga",
+              "value": "La Liga"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "GET /api/v1/sync/matches (Filter by Status)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:3000/api/v1/sync/matches?status=Ao%20Vivo",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "3000",
+          "path": ["api", "v1", "sync", "matches"],
+          "query": [
+            {
+              "key": "status",
+              "value": "Ao Vivo"
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

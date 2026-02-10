@@ -1,0 +1,224 @@
+╔════════════════════════════════════════════════════════════════╗
+║       🔴 AVISO URGENTE PARA IA DO ANDROID                      ║
+║           Atualização de Nome de Variável                       ║
+╚════════════════════════════════════════════════════════════════╝
+
+
+📢 ATENÇÃO IA DO ANDROID:
+
+
+O campo de alerta de gol foi OFICIALIZADO como:
+
+    🔑 Variável: acontecendo_gol
+    🔤 Tipo: boolean
+    ✅ Valor: true/false
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❗ AÇÃO NECESSÁRIA:
+
+
+1️⃣  ATUALIZAR O MODEL/ENTITY
+
+    Antes (IGNORE):
+    var golIndicator: Boolean? = null
+    var golandoGol: Boolean = false
+    var gol: Boolean = false
+
+    Depois (USE ISTO):
+    ┌──────────────────────────────────────┐
+    │ var acontecendo_gol: Boolean = false │
+    └──────────────────────────────────────┘
+
+
+2️⃣  ATUALIZAR O MAPEAMENTO JSON
+
+    Data class (Kotlin):
+    ┌────────────────────────────────────────────┐
+    │ @JsonProperty("acontecendo_gol")           │
+    │ val acontecendo_gol: Boolean = false       │
+    └────────────────────────────────────────────┘
+
+    Ou TypeScript (React Native):
+    ┌────────────────────────────────────────────┐
+    │ interface Partida {                        │
+    │   id_partida: string;                      │
+    │   casa: string;                            │
+    │   fora: string;                            │
+    │   placar_casa: number;                     │
+    │   placar_fora: number;                     │
+    │   status: string;                          │
+    │   liga: string;                            │
+    │   data_partida: string;                    │
+    │   timestamp_sync: string;                  │
+    │   acontecendo_gol: boolean;  ← OFICIAL    │
+    │ }                                          │
+    └────────────────────────────────────────────┘
+
+
+3️⃣  CONFIRMAR NO RETROFIT/AXIOS
+
+    A requisição continua:
+    GET /api/v1/sync
+
+    Response esperado:
+    ┌──────────────────────────────────────────┐
+    │ {                                        │
+    │   "jogos": [                             │
+    │     {                                    │
+    │       "id_partida": "1003",              │
+    │       "casa": "Flamengo RJ",             │
+    │       "fora": "Corinthians SP",          │
+    │       "placar_casa": 1,                  │
+    │       "placar_fora": 1,                  │
+    │       "status": "42'",                   │
+    │       "liga": "Brasileirão",             │
+    │       "data_partida": "2026-01-31T...",  │
+    │       "timestamp_sync": "2026-01-31T...", │
+    │       "acontecendo_gol": true ← AQUI!   │
+    │     }                                    │
+    │   ]                                      │
+    │ }                                        │
+    └──────────────────────────────────────────┘
+
+
+4️⃣  RENDERIZAR NO COMPONENTE
+
+    Código exato para usar:
+
+    ┌────────────────────────────────────────────┐
+    │ if (match.acontecendo_gol) {               │
+    │   renderizar <BolinhaPiscante />           │
+    │ }                                          │
+    │                                            │
+    │ ou                                         │
+    │                                            │
+    │ {match.acontecendo_gol && (                │
+    │   <AnimatedView                            │
+    │     style={[                               │
+    │       styles.golIndicator,                 │
+    │       { transform: [{ scale: anim }] }     │
+    │     ]}                                     │
+    │   />                                       │
+    │ )}                                         │
+    └────────────────────────────────────────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✅ CHECKLIST PARA IA:
+
+
+  ☐ Nome da variável atualizado para: acontecendo_gol
+  ☐ Tipo confirmado como: boolean
+  ☐ Model/Entity mapeado: @JsonProperty("acontecendo_gol")
+  ☐ Componente verifica: match.acontecendo_gol
+  ☐ Animação renderiza: quando true
+  ☐ Testado localmente: http://localhost:3000
+  ☐ API response confirmada: campo presente e correto
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🧪 COMO VALIDAR:
+
+
+  1. Fetch da API:
+     console.log(data.jogos[0].acontecendo_gol)
+     Esperado: true ou false (boolean)
+
+  2. Verificar JSON:
+     Procurar por: "acontecendo_gol": true
+
+  3. Renderizar Componente:
+     Se true → Bolinha verde piscando 🟢
+     Se false → Sem bolinha (oculta)
+
+  4. Testar em Device:
+     Abrir app com localhost:3000 rodando
+     Flamengo deve ter bolinha piscando
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+⚠️  IMPORTANTE:
+
+
+  ❌ Não use nomes alternativos:
+     - golIndicator
+     - gol
+     - golandoGol
+     - pulsandoGol
+     - etc
+
+  ✅ Use EXATAMENTE:
+     - acontecendo_gol (lowercase com underscore)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📍 REFERÊNCIA:
+
+
+  Backend (hub-server.js):
+  ├─ Campo: "acontecendo_gol": boolean
+  ├─ Endpoint: GET /api/v1/sync
+  └─ Valores: true (pisca) | false (oculta)
+
+  Frontend Web (preview):
+  ├─ URL: http://localhost:3000
+  ├─ Resultado: Bolinha verde 🟢 piscando
+  └─ Atualiza: a cada 5 segundos
+
+  Android (seu componente):
+  ├─ Model: acontecendo_gol: boolean
+  ├─ Renderizar: if (match.acontecendo_gol)
+  └─ Resultado: Bolinha verde piscando
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✨ RESULTADO ESPERADO:
+
+
+  Na sua lista de jogos:
+
+  ┌──────────────────────────────┐
+  │ Flamengo        1 - 0 🟢     │  ← Bolinha verde piscando!
+  │ Palmeiras                    │
+  │ (acontecendo_gol = true)     │
+  └──────────────────────────────┘
+
+  ┌──────────────────────────────┐
+  │ São Paulo       0 - 1        │  ← Sem bolinha (oculta)
+  │ Corinthians                  │
+  │ (acontecendo_gol = false)    │
+  └──────────────────────────────┘
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📞 DÚVIDAS?
+
+
+  P: O campo mudou de nome?
+  R: Sim, agora é "acontecendo_gol" (oficial)
+
+  P: Preciso mudar tudo?
+  R: Sim, atualize Model, mapeamento e renderização
+
+  P: Quando ativa a bolinha?
+  R: Quando "acontecendo_gol": true
+
+  P: O backend já envia?
+  R: Sim, em /api/v1/sync (teste em http://localhost:3000)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Status: ✅ OFICIALIZADO
+Data: 2026-01-31
+Para: IA do Android
+
+═══════════════════════════════════════════════════════════════

@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "name": "SaaSportes Figma Starter",
+    "version": "1.0",
+    "description": "Design tokens and component specs for SaaSportes mobile Home (dark theme). White-label ready."
+  },
+  "tokens": {
+    "colors": {
+      "bg-900": "#0B0F12",
+      "card-800": "#0E1418",
+      "text-100": "#E6EDF3",
+      "text-300": "#9AA6B2",
+      "accent-500": "#19E67A",
+      "warn-400": "#FFB86B",
+      "glass": "rgba(255,255,255,0.03)",
+      "live-pulse": "rgba(25,230,122,0.12)",
+      "border-muted": "rgba(255,255,255,0.03)"
+    },
+    "typography": {
+      "fontFamily": "Inter, system-ui, -apple-system, 'Segoe UI', Roboto, Arial",
+      "h1": { "size": 22, "weight": 700, "lineHeight": 28 },
+      "h2": { "size": 18, "weight": 600, "lineHeight": 24 },
+      "body": { "size": 14, "weight": 500, "lineHeight": 20 },
+      "small": { "size": 12, "weight": 400, "lineHeight": 16 },
+      "odds": { "size": 18, "weight": 800, "lineHeight": 20 }
+    },
+    "spacing": {
+      "xs": 8,
+      "sm": 12,
+      "md": 16,
+      "lg": 20,
+      "xl": 24
+    },
+    "radii": {
+      "card": 14,
+      "button": 10,
+      "pill": 999
+    },
+    "elevation": {
+      "card": "0 6px 18px rgba(0,0,0,0.4)",
+      "glow": "0 6px 18px rgba(25,230,122,0.06)"
+    },
+    "sizing": {
+      "navHeight": 56,
+      "minTouch": 44,
+      "oddsHeight": 52
+    }
+  },
+  "components": {
+    "BalanceCard": {
+      "description": "Sticky card showing user balance and CTA",
+      "layout": {
+        "padding": "md",
+        "radius": "card",
+        "background": "card-800",
+        "border": "1px solid rgba(25,230,122,0.06)"
+      },
+      "elements": [
+        { "role": "icon", "size": 32 },
+        { "role": "label", "token": "small", "color": "text-300" },
+        { "role": "amount", "token": "h1", "color": "text-100" },
+        { "role": "cta", "style": "outline", "color": "accent-500" }
+      ]
+    },
+    "EventCard": {
+      "description": "Match card with teams, score, status and markets",
+      "layout": {
+        "padding": "sm",
+        "radius": "card",
+        "background": "card-800",
+        "border": "border-muted"
+      },
+      "elements": [
+        { "role": "teams", "titleStyle": "h2", "metaStyle": "small" },
+        { "role": "score", "style": "odds", "align": "center" },
+        { "role": "status", "style": "pill", "liveBadge": { "color": "accent-500", "pulse": true } },
+        { "role": "markets", "items": 3, "component": "OddsButton" }
+      ],
+      "props": ["teams","league","score","status","markets","happening_gol"]
+    },
+    "OddsButton": {
+      "description": "Tappable odd (market option)",
+      "layout": { "height": "sizing.oddsHeight", "radius": "button", "border": "1px solid rgba(255,255,255,0.04)" },
+      "elements": [
+        { "role": "label", "token": "small", "color": "text-300" },
+        { "role": "value", "token": "odds", "color": "text-100" }
+      ],
+      "states": ["default","hover","active","selected","disabled"]
+    },
+    "BetSlip": {
+      "description": "Floating bet slip with selections, stake, return and CTA",
+      "layout": { "radius": 16, "padding": "md", "background": "card-800", "overlayBlur": true },
+      "elements": [
+        { "role": "handle" },
+        { "role": "list", "item": { "team": {}, "market": {}, "odd": {} } },
+        { "role": "stakeInput", "type": "number" },
+        { "role": "summary", "fields": ["stake","potentialReturn"] },
+        { "role": "cta", "text": "Confirmar Aposta", "style": "filled", "color": "accent-500" }
+      ]
+    }
+  },
+  "layout": {
+    "mobile": { "width": 390, "padding": 16, "grid": 8 }
+  },
+  "whiteLabel": {
+    "logoPlaceholder": "SaaSportes",
+    "tokensOverride": ["colors.accent-500","colors.warn-400","typography"]
+  }
+}

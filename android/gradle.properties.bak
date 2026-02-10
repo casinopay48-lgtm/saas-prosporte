@@ -1,0 +1,19 @@
+# ESTE ARQUIVO FOI DESATIVADO
+# O Gradle usa apenas android/gradle.properties
+
+# Ativa o uso de AndroidX
+android.useAndroidX=true
+android.enableJetifier=true
+
+# Performance do Gradle
+org.gradle.jvmargs=-Xmx4096m -XX:MaxMetaspaceSize=1024m -Dfile.encoding=UTF-8
+org.gradle.parallel=true
+org.gradle.configureondemand=true
+org.gradle.daemon=true
+
+# Kotlin
+kotlin.code.style=official
+
+# React Native
+newArchEnabled=false
+hermesEnabled=false

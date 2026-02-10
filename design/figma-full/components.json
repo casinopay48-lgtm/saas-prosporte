@@ -1,0 +1,37 @@
+{
+  "frames": [
+    {
+      "name": "Home - Mobile (390x844)",
+      "size": { "w": 390, "h": 844 },
+      "layers": [
+        { "type": "image", "src": "logo-placeholder.svg", "x": 16, "y": 16 },
+        { "type": "balanceCard", "x": 16, "y": 72 },
+        { "type": "filters", "x": 16, "y": 156 },
+        { "type": "eventList", "x": 16, "y": 196 }
+      ]
+    }
+  ],
+  "components": {
+    "BalanceCard": {
+      "w": 358,
+      "h": 72,
+      "padding": 16,
+      "elements": [
+        { "type": "icon", "src": "icon-wallet.svg", "x": 16, "y": 20 },
+        { "type": "label", "text": "Saldo", "x": 64, "y": 18 },
+        { "type": "amount", "text": "R$ 1.234,56", "x": 64, "y": 34 },
+        { "type": "cta", "text": "Depositar", "x": 246, "y": 22 }
+      ]
+    },
+    "EventCard": {
+      "w": 358,
+      "h": 116,
+      "elements": [
+        { "type": "teams", "x": 12, "y": 12 },
+        { "type": "score", "x": 260, "y": 12 },
+        { "type": "status", "x": 260, "y": 40 },
+        { "type": "markets", "x": 12, "y": 64 }
+      ]
+    }
+  }
+}

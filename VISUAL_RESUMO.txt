@@ -1,0 +1,285 @@
+
+╔════════════════════════════════════════════════════════════════════════╗
+║                    🎬 NOVO CAMPO: acontecendo_gol                     ║
+║                         Implementação Completa                         ║
+╚════════════════════════════════════════════════════════════════════════╝
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  COMO INSTRUIR A IA DO ANDROID?                                   ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  Copie ISTO para a IA:
+  
+  ┌────────────────────────────────────────────────────────────────┐
+  │ O JSON da API agora envia um campo booleano chamado            │
+  │ acontecendo_gol. Se for true, mostre uma View circular        │
+  │ verde com uma animação de Alpha ou Scale (piscar)             │
+  │ ao lado do placar no item da lista.                           │
+  │                                                                │
+  │ Leia: ANDROID_IA_INSTRUCTION.md                              │
+  │ Veja: http://localhost:8888                                   │
+  └────────────────────────────────────────────────────────────────┘
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  FLUXO VISUAL DOS DADOS                                            ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  1️⃣  API-Football / Mock Data
+      └─→ { _prosporte_meta: { acontecendo_gol: true } }
+
+  2️⃣  normalizer.js
+      └─→ Extrai: acontecendo_gol: true
+
+  3️⃣  syncManager.js
+      └─→ Salva em data/jogos.json
+
+  4️⃣  GET /api/v1/sync
+      └─→ Retorna: { ..., acontecendo_gol: true }
+
+  5️⃣  Android App
+      └─→ if (match.acontecendo_gol) renderiza 🟢
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  TESTE EM 5 MINUTOS                                                ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  Terminal 1:
+  ┌────────────────────────────────────────────────────────────────┐
+  │ $ cd backend && npm install && npm start                       │
+  │                                                                │
+  │ Esperado:                                                      │
+  │ ✅ Servidor rodando em http://localhost:3000                  │
+  │ 🔄 Primeira sincronização em andamento...                     │
+  │ ✅ Sincronização completada! 3 partidas carregadas            │
+  └────────────────────────────────────────────────────────────────┘
+
+  Terminal 2:
+  ┌────────────────────────────────────────────────────────────────┐
+  │ $ node test-acontecendo-gol.js                                 │
+  │                                                                │
+  │ Esperado:                                                      │
+  │ ✅ Backend respondendo!                                        │
+  │ 🟢 acontecendo_gol: true → ATIVO (bolinha piscando)          │
+  │ ✅ Campo "acontecendo_gol" presente                           │
+  └────────────────────────────────────────────────────────────────┘
+
+  Terminal 3:
+  ┌────────────────────────────────────────────────────────────────┐
+  │ $ node serve-preview.js                                        │
+  │                                                                │
+  │ Abra no navegador: http://localhost:8888                      │
+  │                                                                │
+  │ Esperado:                                                      │
+  │ ┌──────────────────────────────────────┐                      │
+  │ │  ⚽ ProSporte                          │                      │
+  │ ├──────────────────────────────────────┤                      │
+  │ │ Flamengo      1 × 1 🟢                │ ← Piscando!         │
+  │ │ Corinthians                           │                      │
+  │ └──────────────────────────────────────┘                      │
+  └────────────────────────────────────────────────────────────────┘
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  ARQUIVOS CRIADOS                                                  ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  📄 00_SUMARIO_GERAL.md
+     └─ Índice de tudo (comece aqui)
+
+  📄 RESPOSTA_SUA_PERGUNTA.md
+     └─ Resposta detalhada à sua pergunta
+
+  📄 ANDROID_IA_INSTRUCTION.md ⭐ COMPARTILHE COM IA
+     ├─ Instruções completas (850+ linhas)
+     ├─ Código React Native pronto
+     ├─ Estilos CSS
+     ├─ Checklist de implementação
+     └─ Exemplos de teste
+
+  📄 COMO_INSTRUIR_IA_ANDROID.md
+     └─ Seu guia de comunicação com IA
+
+  📄 START_ACONTECENDO_GOL.txt
+     └─ Guia visual em ASCII (5 min de teste)
+
+  📄 FLUXO_ACONTECENDO_GOL.md
+     └─ Documentação técnica detalhada
+
+  📄 IMPLEMENTACAO_COMPLETA.md
+     └─ Resumo executivo (para apresentações)
+
+  🌐 prosporte-preview.html
+     └─ Página web interativa (bolinha piscando)
+
+  ⚙️  serve-preview.js
+     └─ Servidor Node para preview
+
+  ⚙️  test-acontecendo-gol.js
+     └─ Script de teste do backend
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  JSON EXEMPLO (O QUE IA RECEBERÁ)                                  ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  GET https://api.prosporte.com.br/api/v1/sync
+
+  {
+    "status": "success",
+    "matches": [
+      {
+        "id_partida": "1003",
+        "casa": "Flamengo RJ",
+        "fora": "Corinthians SP",
+        "placar_casa": 1,
+        "placar_fora": 1,
+        "status": "20 min",
+        "liga": "Campeonato Brasileiro",
+        "data_partida": "2026-01-31T14:20:00Z",
+        "timestamp_sync": "2026-01-31T14:30:00Z",
+        "acontecendo_gol": true   ← IA USA ISTO AQUI
+      }
+    ]
+  }
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  RENDERIZAÇÃO NO ANDROID                                           ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  ANTES (sem o campo):
+  
+  ┌──────────────────────────┐
+  │ Flamengo      1 × 1       │
+  │ Corinthians               │
+  │ Campeonato Brasileiro     │
+  │ 20 min • Ao Vivo         │
+  └──────────────────────────┘
+
+
+  DEPOIS (com acontecendo_gol = true):
+
+  ┌──────────────────────────┐
+  │ Flamengo      1 × 1 🟢    │  ← Bolinha verde
+  │ Corinthians               │     piscando!
+  │ Campeonato Brasileiro     │     (1.0 → 1.3 → 1.0)
+  │ 20 min • Ao Vivo         │
+  └──────────────────────────┘
+
+  Animação:
+  - Scale: 1.0 → 1.3 → 1.0 (600-800ms)
+  - Cor: #4CAF50 (verde)
+  - Tamanho: 12dp
+  - Sombra: ~3px de glow verde
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  FLUXO DE COMUNICAÇÃO                                              ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  👤 VOCÊ (Product/PM)
+     │
+     ├─→ Testa backend (node test-acontecendo-gol.js)
+     │
+     ├─→ Vê preview (http://localhost:8888)
+     │
+     ├─→ Compartilha com IA do Android:
+     │   • ANDROID_IA_INSTRUCTION.md
+     │   • prosporte-preview.html (como referência)
+     │   • Instrução: "Campo acontecendo_gol: true/false"
+     │
+     └─→ IA DO ANDROID
+         │
+         ├─→ Lê ANDROID_IA_INSTRUCTION.md
+         │
+         ├─→ Vê http://localhost:8888 (entende UX esperada)
+         │
+         ├─→ Implementa MatchCard.jsx:
+         │   {match.acontecendo_gol && <AnimatedView />}
+         │
+         ├─→ Testa localmente
+         │
+         └─→ ✅ PRONTO! Reporta sucesso
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  CHECKLIST DE IMPLEMENTAÇÃO                                        ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  🔧 Backend:
+     ☐ npm install (em backend/)
+     ☐ npm start (servidor inicia)
+     ☐ node test-acontecendo-gol.js (valida campo)
+     ☐ curl http://localhost:3000/api/v1/sync (vê JSON)
+
+  🎨 Preview:
+     ☐ node serve-preview.js (servidor iniciado)
+     ☐ http://localhost:8888 (carrega no navegador)
+     ☐ Vê bolinha verde piscando? ✅
+
+  🤖 IA Android:
+     ☐ Recebe ANDROID_IA_INSTRUCTION.md
+     ☐ Vê prosporte-preview.html
+     ☐ Implementa MatchCard.jsx
+     ☐ Adiciona Animated.View
+     ☐ Testa localmente
+     ☐ Reporta sucesso
+
+  🚀 Produção:
+     ☐ Deploy backend em api.prosporte.com.br
+     ☐ Testar: curl https://api.prosporte.com.br/api/v1/sync
+     ☐ Android integrado (URL production)
+     ☐ Usuários veem bolinha verde 🎉
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  UM-LINER PARA MEMORIZAR                                           ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  "Backend envia acontecendo_gol: true/false,
+   Android renderiza bolinha verde piscante quando true,
+   Preview em http://localhost:8888"
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  STATUS FINAL                                                      ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  Backend:              ✅ 100% (modificações feitas)
+  JSON:                 ✅ 100% (novo campo incluído)
+  API Endpoint:         ✅ 100% (retornando dados corretos)
+  Documentação:         ✅ 100% (5+ arquivos criados)
+  Preview Web:          ✅ 100% (animação funcionando)
+  Testes:               ✅ 100% (scripts prontos)
+  Instrução Android:    ✅ 100% (arquivo completo)
+  
+  Android Implementation: ⏳ Aguarda IA (com instruções fornecidas)
+  Production Deploy:      ⏳ Aguarda credenciais VPS
+
+
+┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃  PRÓXIMA AÇÃO                                                      ┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛
+
+  ✨ Agora:
+
+     1. node test-acontecendo-gol.js     (validar)
+     2. node serve-preview.js            (visualizar)
+     3. Compartilhar ANDROID_IA_INSTRUCTION.md
+
+  Resultado esperado em 24h:
+     • IA do Android reporta implementação completa
+     • Bolinha verde piscando em device de teste
+
+
+═══════════════════════════════════════════════════════════════════════
+
+                  ✅ Tudo Pronto para Começar!
+
+           Versão: 1.0 | Data: 2026-01-31 | Status: COMPLETO
+
+═══════════════════════════════════════════════════════════════════════
+

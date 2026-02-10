@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ProSporte - Jogos ao Vivo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+
+        .header p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .matches-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .match-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.5s ease-out;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .match-header {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .league-badge {
+            background: #667eea;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .status-badge {
+            background: #4CAF50;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .match-body {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .team {
+            flex: 1;
+            text-align: center;
+        }
+
+        .team-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 6px;
+        }
+
+        .team-logo {
+            width: 40px;
+            height: 40px;
+            background: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto;
+            font-size: 20px;
+        }
+
+        .score-container {
+            text-align: center;
+            position: relative;
+            min-width: 100px;
+        }
+
+        .score {
+            font-size: 28px;
+            font-weight: bold;
+            color: #007AFF;
+            margin-bottom: 6px;
+        }
+
+        .gol-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #4CAF50;
+            margin: 0 auto;
+            box-shadow: 0 0 8px #4CAF50, 0 0 12px rgba(76, 175, 80, 0.5);
+            animation: pulse 0.6s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+                box-shadow: 0 0 8px #4CAF50, 0 0 12px rgba(76, 175, 80, 0.5);
+            }
+            50% {
+                transform: scale(1.3);
+                opacity: 0.3;
+                box-shadow: 0 0 15px #4CAF50, 0 0 20px rgba(76, 175, 80, 0.7);
+            }
+        }
+
+        .match-footer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 12px;
+            color: #666;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 10px;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .info-item.time::before {
+            content: "🕐";
+            font-size: 14px;
+        }
+
+        .no-gol {
+            opacity: 0.3;
+            transition: opacity 0.2s;
+        }
+
+        .api-info {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            padding: 15px;
+            color: white;
+            margin-top: 20px;
+            font-size: 12px;
+            line-height: 1.6;
+        }
+
+        .api-info code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+        }
+
+        .json-preview {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            font-family: 'Courier New', monospace;
+            font-size: 11px;
+            color: #333;
+            overflow-x: auto;
+            line-height: 1.4;
+        }
+
+        .json-key { color: #007AFF; font-weight: 600; }
+        .json-value { color: #4CAF50; }
+        .json-bool { color: #FF6B6B; font-weight: 600; }
+        .json-string { color: #F59E0B; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>⚽ ProSporte</h1>
+            <p>Simulação: Campo acontecendo_gol ativo</p>
+        </div>
+
+        <div class="matches-list">
+            <!-- MATCH 1: COM GOL ACONTECENDO -->
+            <div class="match-card">
+                <div class="match-header">
+                    <div class="league-badge">Campeonato Brasileiro</div>
+                    <div class="status-badge">1H</div>
+                </div>
+
+                <div class="match-body">
+                    <!-- Time Casa -->
+                    <div class="team">
+                        <div class="team-logo">🔴</div>
+                        <div class="team-name">Flamengo</div>
+                    </div>
+
+                    <!-- Placar + Indicador -->
+                    <div class="score-container">
+                        <div class="score">1 × 1</div>
+                        <div class="gol-indicator"></div>
+                    </div>
+
+                    <!-- Time Fora -->
+                    <div class="team">
+                        <div class="team-logo">⚪</div>
+                        <div class="team-name">Corinthians</div>
+                    </div>
+                </div>
+
+                <div class="match-footer">
+                    <div class="info-item">20 min</div>
+                    <div class="info-item">•</div>
+                    <div class="info-item">Ao Vivo</div>
+                </div>
+            </div>
+
+            <!-- MATCH 2: SEM GOL -->
+            <div class="match-card">
+                <div class="match-header">
+                    <div class="league-badge">Campeonato Brasileiro</div>
+                    <div class="status-badge">Agendada</div>
+                </div>
+
+                <div class="match-body">
+                    <!-- Time Casa -->
+                    <div class="team">
+                        <div class="team-logo">🟡</div>
+                        <div class="team-name">São Paulo</div>
+                    </div>
+
+                    <!-- Placar -->
+                    <div class="score-container">
+                        <div class="score">0 × 0</div>
+                        <div class="gol-indicator no-gol"></div>
+                    </div>
+
+                    <!-- Time Fora -->
+                    <div class="team">
+                        <div class="team-logo">🔵</div>
+                        <div class="team-name">Palmeiras</div>
+                    </div>
+                </div>
+
+                <div class="match-footer">
+                    <div class="info-item">19:00</div>
+                    <div class="info-item">•</div>
+                    <div class="info-item">Próximo jogo</div>
+                </div>
+            </div>
+
+            <!-- MATCH 3: FINAL COM GOL -->
+            <div class="match-card">
+                <div class="match-header">
+                    <div class="league-badge">Libertadores</div>
+                    <div class="status-badge">2H</div>
+                </div>
+
+                <div class="match-body">
+                    <!-- Time Casa -->
+                    <div class="team">
+                        <div class="team-logo">⚫</div>
+                        <div class="team-name">Botafogo</div>
+                    </div>
+
+                    <!-- Placar + Indicador -->
+                    <div class="score-container">
+                        <div class="score">2 × 0</div>
+                        <div class="gol-indicator"></div>
+                    </div>
+
+                    <!-- Time Fora -->
+                    <div class="team">
+                        <div class="team-logo">🟢</div>
+                        <div class="team-name">Fluminense</div>
+                    </div>
+                </div>
+
+                <div class="match-footer">
+                    <div class="info-item">43 min</div>
+                    <div class="info-item">•</div>
+                    <div class="info-item">Ao Vivo</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INFORMAÇÃO API -->
+        <div class="api-info">
+            <strong>🔌 O que está acontecendo:</strong>
+            <br><br>
+            A API retorna um campo booleano <code>acontecendo_gol: true</code> para partidas em que há movimento de gol no momento.
+            <br><br>
+            O Android renderiza isso como <strong>uma bolinha verde piscante</strong> ao lado do placar.
+            <br><br>
+            <strong>URLs disponíveis:</strong>
+            <br>
+            • <code>https://api.prosporte.com.br/api/v1/sync</code> (JSON completo)
+            <br>
+            • <code>https://api.prosporte.com.br/api/v1/sync/status</code> (Status)
+        </div>
+
+        <!-- PREVIEW JSON -->
+        <div class="json-preview">
+            <strong>📋 Resposta da API (exemplo):</strong>
+            <br><br>
+            {
+            <br>&nbsp;&nbsp;<span class="json-key">"matches"</span>: [
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;{
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"id_partida"</span>: <span class="json-string">"1003"</span>,
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"casa"</span>: <span class="json-string">"Flamengo RJ"</span>,
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"fora"</span>: <span class="json-string">"Corinthians SP"</span>,
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"placar_casa"</span>: <span class="json-value">1</span>,
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"placar_fora"</span>: <span class="json-value">1</span>,
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"status"</span>: <span class="json-string">"20 min"</span>,
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"liga"</span>: <span class="json-string">"Campeonato Brasileiro"</span>,
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"data_partida"</span>: <span class="json-string">"2026-01-31T14:20:00Z"</span>,
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"timestamp_sync"</span>: <span class="json-string">"2026-01-31T14:30:00Z"</span>,
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="json-key">"acontecendo_gol"</span>: <span class="json-bool">true</span>&nbsp;&nbsp;<span style="color: #999;">← NOVO CAMPO</span>
+            <br>&nbsp;&nbsp;&nbsp;&nbsp;}
+            <br>&nbsp;&nbsp;]
+            <br>}
+        </div>
+    </div>
+
+    <script>
+        // Simulação: alternar o campo acontecendo_gol a cada 5 segundos
+        setInterval(() => {
+            const indicators = document.querySelectorAll('.gol-indicator');
+            indicators.forEach(indicator => {
+                if (!indicator.classList.contains('no-gol')) {
+                    // Simular pulsação real
+                    indicator.style.animation = 'none';
+                    setTimeout(() => {
+                        indicator.style.animation = '';
+                    }, 10);
+                }
+            });
+        }, 5000);
+
+        console.log('🎬 ProSporte Web Preview - Simulação do novo campo acontecendo_gol');
+        console.log('✅ Campo adicionado ao JSON da API');
+        console.log('✅ Android renderizará bolinha verde piscante quando true');
+        console.log('✅ Normalizer.js já transformando dados para incluir este campo');
+    </script>
+</body>
+</html>

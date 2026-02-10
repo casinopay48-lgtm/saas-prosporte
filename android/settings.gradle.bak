@@ -1,0 +1,10 @@
+pluginManagement {
+}
+
+plugins {
+    id("com.facebook.react") apply false
+}
+
+rootProject.name = "saasportesMobile"
+
+include(":app")
